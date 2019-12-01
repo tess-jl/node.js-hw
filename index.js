@@ -1,3 +1,18 @@
-var server = require("./server"); 
+// var server = require('./server.js'); 
+// var router = require('./router.js'); 
 
-server.start(); 
+// server.start(router.route); 
+
+var server = require('./server.js'); 
+var router = require('./router.js'); 
+var requestHandlers = require('./requestHandlers'); 
+
+var handle = {}; 
+
+//a simple and clean way to map diffeent URLs to the same request handler
+handle['/'] = requestHandlers.start; 
+
+handle['/start'] = requestHandlers.start; 
+handle['/upload'] = requestHandlers.upload; 
+
+server.start(router.route, handle); 
