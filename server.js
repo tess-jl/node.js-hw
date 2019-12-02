@@ -100,19 +100,144 @@
 
 // after defining out handle object we need to change server.js (page 22)
 
+// var http = require('http'); 
+// var url = require('url'); 
+// function start(route, handle) {
+//     function onRequest(req, res) {
+//         var pathname = url.parse(req.url).pathname; 
+//         console.log('Request for ' + pathname + ' received. '); 
+
+//         //callback
+//         route(handle, pathname); 
+        
+//         res.writeHead(200, {'Content-Type': 'text/plain'});
+//         res.write('Hello World'); 
+//         res.end(); 
+//     }
+//     http.createServer(onRequest).listen(8888);
+//     console.log('Server has started. ');
+// }
+// exports.start = start; 
+
+
+//what not to do because of blocking
+// var http = require('http'); 
+// var url = require('url'); 
+// function start(route, handle) {
+//     function onRequest(req, res) {
+//         var pathname = url.parse(req.url).pathname; 
+//         console.log('Request for ' + pathname + ' received. '); 
+
+//         res.writeHead(200, {'Content-Type': 'text/plain'});
+//         //callback
+//         var content = route(handle, pathname); 
+        
+//         res.write(content); 
+//         res.end(); 
+//     }
+//     http.createServer(onRequest).listen(8888);
+//     console.log('Server has started. ');
+// }
+// exports.start = start; 
+
+//page 29
+// var http = require('http'); 
+// var url = require('url'); 
+// function start(route, handle) {
+//     function onRequest(req, res) {
+//         var pathname = url.parse(req.url).pathname; 
+//         console.log('Request for ' + pathname + ' received. '); 
+// //pass the route function the 3rd param, the response object
+//         route(handle, pathname, res); 
+//     }
+//     http.createServer(onRequest).listen(8888);
+//     console.log('Server has started. ');
+// }
+// exports.start = start; 
+
+//page 34 
+// var http = require('http'); 
+// var url = require('url'); 
+// function start(route, handle) {
+//     function onRequest(req, res) {
+//         var postData = ''; 
+//         var pathname = url.parse(req.url).pathname; 
+//         console.log('Request for ' + pathname + ' received. '); 
+
+//         req.setEncoding('utf8'); 
+//         req.addListener('data', function(postDataChunk) {
+//             postData += postDataChunk;
+//             console.log("Received POST data chunk ;'" + postDataChunk + "'.");
+//         });
+//         req.addListener('end', function() {
+//             route(handle, pathname, postData); 
+//         });
+//     }
+//     http.createServer(onRequest).listen(8888);
+//     console.log('Server has started. ');
+// }
+// exports.start = start; 
+
+//page 38 
+// var formidable = require('formidable'),
+//     http = require('http'),
+//     sys = require('sys');
+
+// http.createServer(function(req, res) {
+//     if (req.url === '/upload' && req.method.toLowerCase() === 'post') {
+//             // parse a file upload
+//         var form = new formidable.IncomingForm();
+//         form.parse(req, function(error, fields, files) {
+//             res.writeHead(200, { 'content-type': 'text/plain' });
+//             res.write('received upload:\n\n');
+//             res.end(sys.inspect({ fields: fields, files: files }));
+//         });
+//         return;
+//     }
+//     res.writeHead(200, { 'content-type': 'text/html' });
+//     res.end(
+//         '<form action="/upload" enctype="multipart/form-data" ' +
+//         'method="post">' +
+//         '<input type="text" name="title"><br>' +
+//         '<input type="file" name="upload" multiple="multiple"><br>' +
+//         '<input type="submit" value="Upload">' +
+//         '</form>'
+//     );
+// }).listen(8888);
+
+// var http = require('http'); 
+// var url = require('url'); 
+// function start(route, handle) {
+//     function onRequest(req, res) {
+//         var postData = ''; 
+//         var pathname = url.parse(req.url).pathname; 
+//         console.log('Request for ' + pathname + ' received. '); 
+
+//         req.setEncoding('utf8'); 
+//         req.addListener('data', function(postDataChunk) {
+//             postData += postDataChunk;
+//             console.log("Received POST data chunk ;'" + postDataChunk + "'.");
+//         });
+//         req.addListener('end', function() {
+//             route(handle, pathname, postData); 
+//         });
+//     }
+//     http.createServer(onRequest).listen(8888);
+//     console.log('Server has started. ');
+// }
+// exports.start = start; 
+
+//page 43
 var http = require('http'); 
 var url = require('url'); 
+
 function start(route, handle) {
     function onRequest(req, res) {
         var pathname = url.parse(req.url).pathname; 
         console.log('Request for ' + pathname + ' received. '); 
 
-        //callback
-        route(handle, pathname); 
+        route(handle, pathname, res, req); 
         
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.write('Hello World'); 
-        res.end(); 
     }
     http.createServer(onRequest).listen(8888);
     console.log('Server has started. ');
