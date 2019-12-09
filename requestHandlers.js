@@ -301,7 +301,8 @@ function upload(res, req) {
             }
         });
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.write('received image: <br/>');res.write("<img src='/show' />");  
+        res.write('received image: <br/>');
+        res.write("<img src='/show' />");  
         res.end(); 
     });
 }
