@@ -264,8 +264,8 @@
 // exports.show = show;
 
 //page 44
-var querystring = require('querystring'),
-    fs = require('fs'),
+// var querystring = require('querystring'),
+var fs = require('fs'),
     formidable = require('formidable'); 
 
 function start(res) {
